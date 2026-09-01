@@ -1,147 +1,324 @@
-<h2 class="sr-only">Data career self-rating tool: rate yourself 1 to 5 across eight skill areas and see your stage and focus areas.</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Career — Self-rating</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
-.row{padding:12px 0;border-bottom:0.5px solid var(--border)}
-.row:last-of-type{border-bottom:none}
-.hd{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.nm{font-size:15px;font-weight:500}
+:root{
+  --ink:#1a1d21;
+  --muted:#5f6672;
+  --line:#e2e5ea;
+  --accent:#0f6e56;
+  --accent-bg:#e1f5ee;
+  --paper:#ffffff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  padding:40px 24px 80px;
+  background:#f7f8f9;
+  color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;
+  line-height:1.65;
+}
+.sheet{max-width:720px;margin:0 auto;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:32px 36px 40px}
+h1{font-size:22px;font-weight:500;margin:0 0 6px;line-height:1.4}
+.sub{color:var(--muted);font-size:14px;margin:0 0 28px;line-height:1.65;max-width:62ch}
+.who{display:flex;align-items:center;gap:10px;margin:0 0 8px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.who label{font-size:14px;color:var(--muted);white-space:nowrap}
+.who input{flex:1;font:inherit;font-size:15px;padding:8px 12px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink)}
+.who input:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:var(--accent)}
+.row{padding:14px 0;border-bottom:1px solid var(--line)}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.nm{font-size:16px;font-weight:500}
 .pills{display:flex;gap:6px}
-.p{width:32px;height:32px;padding:0;font-size:14px;border-radius:var(--radius);cursor:pointer}
-.p.on{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent)}
-.an{font-size:13px;color:var(--text-secondary);margin-top:6px;min-height:18px}
-.mc{background:var(--surface-1);border-radius:var(--radius);padding:1rem}
-.mc .l{font-size:13px;color:var(--text-secondary)}
-.mc .v{font-size:24px;font-weight:500;margin-top:4px}
+.p{width:38px;height:38px;padding:0;font:inherit;font-size:14px;background:var(--paper);color:var(--muted);border:1px solid var(--line);border-radius:6px;cursor:pointer;transition:background .12s,border-color .12s}
+.p:hover{border-color:var(--accent);color:var(--accent)}
+.p:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.p.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.an{font-size:14px;color:var(--muted);margin-top:6px;min-height:22px;line-height:1.6}
+.actions{display:flex;align-items:center;gap:14px;margin-top:28px;flex-wrap:wrap}
+button.go{font:inherit;font-size:15px;padding:10px 20px;background:var(--accent);color:#fff;border:none;border-radius:6px;cursor:pointer}
+button.go:hover{background:#0b5744}
+button.ghost{font:inherit;font-size:14px;padding:10px 16px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:6px;cursor:pointer}
+button.ghost:hover{border-color:var(--accent);color:var(--accent)}
+.err{font-size:14px;color:#a32d2d}
+.out{margin-top:32px}
+.hint{color:var(--muted);font-size:14px;margin:0}
+.outh{font-size:16px;font-weight:500;margin:0 0 12px;line-height:1.5}
+.task{display:flex;gap:14px;padding:16px 18px;background:#f7f8f9;border-radius:8px;margin-bottom:10px}
+.task .rank{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.task .body{flex:1;min-width:0}
+.task .t{font-size:16px;font-weight:500;margin:0;line-height:1.5}
+.task .lvl{font-size:13px;color:var(--muted);margin:0}
+.task .do{font-size:14px;margin:6px 0 0;line-height:1.6}
+.subh{font-size:14px;color:var(--muted);margin:24px 0 6px;line-height:1.5}
+.mini{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line);font-size:15px}
+.mini:last-of-type{border-bottom:none}
+.mini .g{color:var(--muted);font-size:13px;white-space:nowrap}
+.ok{background:var(--accent-bg);border-radius:8px;padding:16px 18px;margin-top:16px}
+.ok .l{font-size:13px;color:var(--accent);font-weight:500;margin:0 0 2px}
+.ok .v{font-size:15px;color:#085041;margin:0;line-height:1.6}
+.note{font-size:14px;color:var(--muted);margin:14px 0 0}
+.copy{width:100%;margin-top:20px;font:inherit;font-size:13px;line-height:1.7;padding:14px;border:1px solid var(--line);border-radius:8px;background:#f7f8f9;color:var(--ink);resize:vertical}
+@media print{body{background:#fff;padding:0}.sheet{border:none}.actions{display:none}}
+@media (max-width:560px){
+  body{padding:20px 12px 60px}
+  .sheet{padding:24px 20px 32px}
+  .hd{align-items:flex-start;flex-direction:column;gap:10px}
+  .p{width:44px;height:40px}
+}
 </style>
+</head>
+<body>
+<div class="sheet">
 
-<div style="padding:1rem 0">
+<h1>Data career — rate yourself</h1>
+<p class="sub">Rate each of the ten areas from 1 to 5. Each number describes what you can actually do, so pick the one that matches your real level rather than the one you're aiming for. No total score is shown — the result tells you what to work on first. Takes about five minutes.</p>
 
-<div class="row" data-k="SQL">
-<div class="hd"><span class="nm">SQL</span><span class="pills">
-<button class="p" data-v="1" data-l="SELECT, WHERE လောက်ပဲ">1</button>
-<button class="p" data-v="2" data-l="JOIN, GROUP BY ရေးတတ်">2</button>
-<button class="p" data-v="3" data-l="Subquery, CTE သုံးတတ်">3</button>
-<button class="p" data-v="4" data-l="Window function သုံးတတ်">4</button>
-<button class="p" data-v="5" data-l="Query tuning, execution plan ဖတ်တတ်">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="Programming">
-<div class="hd"><span class="nm">Programming</span><span class="pills">
-<button class="p" data-v="1" data-l="Syntax လောက်ပဲ သိတယ်">1</button>
-<button class="p" data-v="2" data-l="Script သေးသေး ရေးတတ်">2</button>
-<button class="p" data-v="3" data-l="File, API handle + error handling">3</button>
-<button class="p" data-v="4" data-l="Reusable module, test ရေးတတ်">4</button>
-<button class="p" data-v="5" data-l="Production code ရေးဖူး, code review လုပ်ဖူး">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="Data modeling">
-<div class="hd"><span class="nm">Data modeling</span><span class="pills">
-<button class="p" data-v="1" data-l="Table ဆိုတာ သိရုံ">1</button>
-<button class="p" data-v="2" data-l="Normalization အခြေခံ နားလည်">2</button>
-<button class="p" data-v="3" data-l="App database ကိုယ်တိုင် ဒီဇိုင်းလုပ်ဖူး">3</button>
-<button class="p" data-v="4" data-l="Star schema, fact / dimension နားလည်">4</button>
-<button class="p" data-v="5" data-l="Warehouse + SCD ဒီဇိုင်း လုပ်ဖူး">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="Pipeline / ETL">
-<div class="hd"><span class="nm">Pipeline / ETL</span><span class="pills">
-<button class="p" data-v="1" data-l="မလုပ်ဖူးပါ">1</button>
-<button class="p" data-v="2" data-l="Manual export / import လုပ်ဖူး">2</button>
-<button class="p" data-v="3" data-l="Script + cron နဲ့ automate လုပ်ဖူး">3</button>
-<button class="p" data-v="4" data-l="Airflow, ADF စတဲ့ tool သုံးဖူး">4</button>
-<button class="p" data-v="5" data-l="Production pipeline monitor လုပ်ဖူး">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="Git / Linux / Cloud">
-<div class="hd"><span class="nm">Git / Linux / Cloud</span><span class="pills">
-<button class="p" data-v="1" data-l="မသုံးဖူးပါ">1</button>
-<button class="p" data-v="2" data-l="Git commit, push လောက်">2</button>
-<button class="p" data-v="3" data-l="Branch, merge, PR လုပ်တတ်">3</button>
-<button class="p" data-v="4" data-l="Linux CLI ကျွမ်းကျင်">4</button>
-<button class="p" data-v="5" data-l="Cloud service တစ်ခု deploy လုပ်ဖူး">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="Dashboard / BI">
-<div class="hd"><span class="nm">Dashboard / BI</span><span class="pills">
-<button class="p" data-v="1" data-l="မလုပ်ဖူးပါ">1</button>
-<button class="p" data-v="2" data-l="Excel chart လောက်">2</button>
-<button class="p" data-v="3" data-l="BI tool နဲ့ dashboard လုပ်ဖူး">3</button>
-<button class="p" data-v="4" data-l="Metric သတ်မှတ်ပြီး ဒီဇိုင်းလုပ်ဖူး">4</button>
-<button class="p" data-v="5" data-l="Stakeholder ဆီက requirement ယူပြီး လုပ်ဖူး">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="English / Communication">
-<div class="hd"><span class="nm">English / Communication</span><span class="pills">
-<button class="p" data-v="1" data-l="ပြောရ အရမ်းခက်">1</button>
-<button class="p" data-v="2" data-l="ဖတ်နိုင်တယ်, ပြောရခက်">2</button>
-<button class="p" data-v="3" data-l="Meeting မှာ ပါဝင်နိုင်">3</button>
-<button class="p" data-v="4" data-l="Project ကို English နဲ့ ရှင်းပြနိုင်">4</button>
-<button class="p" data-v="5" data-l="Stakeholder နဲ့ ညှိနှိုင်းနိုင်">5</button>
-</span></div><div class="an"></div></div>
-
-<div class="row" data-k="Portfolio">
-<div class="hd"><span class="nm">Portfolio</span><span class="pills">
-<button class="p" data-v="1" data-l="မရှိသေးပါ">1</button>
-<button class="p" data-v="2" data-l="Tutorial project ပဲ ရှိ">2</button>
-<button class="p" data-v="3" data-l="ကိုယ်ပိုင် project ၁ ခု ရှိ">3</button>
-<button class="p" data-v="4" data-l="End-to-end project + README">4</button>
-<button class="p" data-v="5" data-l="တခြားသူ သုံးနေတဲ့ system လုပ်ဖူး">5</button>
-</span></div><div class="an"></div></div>
-
-<div style="display:flex;align-items:center;gap:12px;margin-top:1.5rem">
-<button id="go">ရလဒ် ကြည့်မယ်</button>
-<span id="err" style="font-size:13px;color:var(--text-danger)"></span>
+<div class="who">
+  <label for="name">Name</label>
+  <input id="name" type="text" placeholder="Your name">
 </div>
 
-<div id="out" style="margin-top:1.5rem">
-<p style="font-size:14px;color:var(--text-muted);margin:0">အားလုံး ၈ ခုကို အမှတ်ပေးပြီးမှ ရလဒ် ပေါ်ပါမယ်။</p>
+<div class="row" data-k="SQL">
+  <div class="hd"><span class="nm">SQL</span><span class="pills">
+    <button class="p" data-v="1" data-l="SELECT and WHERE only">1</button>
+    <button class="p" data-v="2" data-l="Can write JOIN and GROUP BY">2</button>
+    <button class="p" data-v="3" data-l="Comfortable with subqueries and CTEs">3</button>
+    <button class="p" data-v="4" data-l="Use window functions confidently">4</button>
+    <button class="p" data-v="5" data-l="Tune queries and read execution plans">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Python">
+  <div class="hd"><span class="nm">Python</span><span class="pills">
+    <button class="p" data-v="1" data-l="Know the syntax, haven't built anything">1</button>
+    <button class="p" data-v="2" data-l="Write small scripts with loops and functions">2</button>
+    <button class="p" data-v="3" data-l="Handle data with pandas, call APIs">3</button>
+    <button class="p" data-v="4" data-l="Split code into modules, handle errors, write tests">4</button>
+    <button class="p" data-v="5" data-l="Written production code, published a package">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Data modeling">
+  <div class="hd"><span class="nm">Data modeling</span><span class="pills">
+    <button class="p" data-v="1" data-l="Know what a table is, nothing beyond that">1</button>
+    <button class="p" data-v="2" data-l="Understand basic normalization">2</button>
+    <button class="p" data-v="3" data-l="Designed an application database myself">3</button>
+    <button class="p" data-v="4" data-l="Understand star schema, facts and dimensions">4</button>
+    <button class="p" data-v="5" data-l="Designed a warehouse with slowly changing dimensions">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Pipeline / ETL">
+  <div class="hd"><span class="nm">Pipeline / ETL</span><span class="pills">
+    <button class="p" data-v="1" data-l="Never done it">1</button>
+    <button class="p" data-v="2" data-l="Done manual exports and imports">2</button>
+    <button class="p" data-v="3" data-l="Automated a job with a script and cron">3</button>
+    <button class="p" data-v="4" data-l="Used a tool like Airflow, ADF or SSIS">4</button>
+    <button class="p" data-v="5" data-l="Monitored and maintained pipelines in production">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Git">
+  <div class="hd"><span class="nm">Git</span><span class="pills">
+    <button class="p" data-v="1" data-l="Never used it">1</button>
+    <button class="p" data-v="2" data-l="Clone, commit and push only">2</button>
+    <button class="p" data-v="3" data-l="Branch, merge and resolve conflicts">3</button>
+    <button class="p" data-v="4" data-l="Opened pull requests, reviewed code">4</button>
+    <button class="p" data-v="5" data-l="Use rebase and tags, wired Git into CI/CD">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Linux / Bash">
+  <div class="hd"><span class="nm">Linux / Bash</span><span class="pills">
+    <button class="p" data-v="1" data-l="Never used it">1</button>
+    <button class="p" data-v="2" data-l="cd, ls and mkdir only">2</button>
+    <button class="p" data-v="3" data-l="Comfortable with permissions, grep and pipes">3</button>
+    <button class="p" data-v="4" data-l="Write bash scripts and set up cron jobs">4</button>
+    <button class="p" data-v="5" data-l="Deploy services on a server and read logs">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Cloud">
+  <div class="hd"><span class="nm">Cloud</span><span class="pills">
+    <button class="p" data-v="1" data-l="Never used it">1</button>
+    <button class="p" data-v="2" data-l="Know the names AWS, Azure and GCP">2</button>
+    <button class="p" data-v="3" data-l="Spun up storage or a VM once">3</button>
+    <button class="p" data-v="4" data-l="Used a managed data service (S3, BigQuery, ADF)">4</button>
+    <button class="p" data-v="5" data-l="Designed architecture with IAM, cost and networking in mind">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Dashboard / BI">
+  <div class="hd"><span class="nm">Dashboard / BI</span><span class="pills">
+    <button class="p" data-v="1" data-l="Never done it">1</button>
+    <button class="p" data-v="2" data-l="Excel charts only">2</button>
+    <button class="p" data-v="3" data-l="Built a dashboard in Power BI or Tableau">3</button>
+    <button class="p" data-v="4" data-l="Defined the metrics myself and designed around them">4</button>
+    <button class="p" data-v="5" data-l="Gathered requirements from stakeholders and delivered">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="English / Communication">
+  <div class="hd"><span class="nm">English / Communication</span><span class="pills">
+    <button class="p" data-v="1" data-l="Find it very hard to speak">1</button>
+    <button class="p" data-v="2" data-l="Can read it, struggle to speak">2</button>
+    <button class="p" data-v="3" data-l="Can take part in a meeting">3</button>
+    <button class="p" data-v="4" data-l="Can explain my own project in English">4</button>
+    <button class="p" data-v="5" data-l="Can negotiate with stakeholders">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="row" data-k="Portfolio">
+  <div class="hd"><span class="nm">Portfolio</span><span class="pills">
+    <button class="p" data-v="1" data-l="Nothing yet">1</button>
+    <button class="p" data-v="2" data-l="Tutorial projects only">2</button>
+    <button class="p" data-v="3" data-l="One project of my own">3</button>
+    <button class="p" data-v="4" data-l="End-to-end project on GitHub with a README">4</button>
+    <button class="p" data-v="5" data-l="Built something other people actually use">5</button>
+  </span></div><div class="an"></div>
+</div>
+
+<div class="actions">
+  <button class="go" id="go">Show what to work on first</button>
+  <button class="ghost" id="reset">Start over</button>
+  <span class="err" id="err"></span>
+</div>
+
+<div class="out" id="out">
+  <p class="hint">Rate all ten areas to see your result.</p>
 </div>
 
 </div>
 
 <script>
 (function(){
-var rows=[].slice.call(document.querySelectorAll('.row'));
-rows.forEach(function(r){
-  r.querySelectorAll('.p').forEach(function(b){
-    b.addEventListener('click',function(){
-      r.querySelectorAll('.p').forEach(function(x){x.classList.remove('on')});
-      b.classList.add('on');
-      r.dataset.val=b.dataset.v;
-      r.querySelector('.an').textContent=b.dataset.l;
-      document.getElementById('err').textContent='';
+  var SPEC = {
+    'SQL': { w: 5, t: 4, do: 'Practise window functions and CTEs. This is where most entry-level interviews are decided.' },
+    'Python': { w: 5, t: 3, do: 'Write one script that pulls data from a CSV or an API and cleans it with pandas.' },
+    'Data modeling': { w: 4, t: 3, do: 'Learn star schema, facts and dimensions, then design one schema yourself.' },
+    'Pipeline / ETL': { w: 4, t: 3, do: 'Build a small pipeline that runs on its own from a source to a finished table.' },
+    'Git': { w: 3, t: 3, do: 'Put a project on GitHub and practise branching and opening pull requests.' },
+    'Linux / Bash': { w: 3, t: 3, do: 'Write one bash script and schedule it with cron so it runs on its own.' },
+    'Cloud': { w: 3, t: 3, do: 'Pick one cloud and stay there. Try storage and a managed database on the free tier.' },
+    'Dashboard / BI': { w: 2, t: 2, do: 'Build one dashboard in Power BI or Metabase.' },
+    'English / Communication': { w: 4, t: 3, do: 'Record yourself explaining your project in English for two minutes, then do it again.' },
+    'Portfolio': { w: 5, t: 4, do: 'Put one end-to-end project on GitHub with a README. This beats twenty tutorials.' }
+  };
+
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.row'));
+  var err = document.getElementById('err');
+  var out = document.getElementById('out');
+  var blank = '<p class="hint">Rate all ten areas to see your result.</p>';
+
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  rows.forEach(function(r){
+    r.querySelectorAll('.p').forEach(function(b){
+      b.addEventListener('click', function(){
+        r.querySelectorAll('.p').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on');
+        r.dataset.val = b.dataset.v;
+        r.querySelector('.an').textContent = b.dataset.l;
+        err.textContent = '';
+      });
     });
   });
-});
-document.getElementById('go').addEventListener('click',function(){
-  var vals=rows.map(function(r){return {k:r.dataset.k,v:parseInt(r.dataset.val||0,10)}});
-  if(vals.some(function(x){return !x.v})){
-    document.getElementById('err').textContent='၈ ခုလုံး အမှတ်ပေးပါ';
-    return;
-  }
-  var total=vals.reduce(function(a,b){return a+b.v},0);
-  var band,eta;
-  if(total<=15){band='အခြေခံ တည်ဆောက်ဆဲ';eta='၆-၉ လ';}
-  else if(total<=23){band='သင်ယူဆဲ အဆင့်';eta='၄-၆ လ';}
-  else if(total<=31){band='Interview နီးပြီ';eta='၂-၃ လ';}
-  else {band='Entry level အသင့်';eta='အခုပဲ လျှောက်လို့ရ';}
-  var sorted=vals.slice().sort(function(a,b){return a.v-b.v});
-  var weak=sorted.slice(0,2).map(function(x){return x.k});
-  var strong=sorted[sorted.length-1].k;
-  var h='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">'
-   +'<div class="mc"><div class="l">စုစုပေါင်း</div><div class="v">'+total+' / 40</div></div>'
-   +'<div class="mc"><div class="l">အဆင့်</div><div class="v" style="font-size:18px">'+band+'</div></div>'
-   +'<div class="mc"><div class="l">Interview အထိ ခန့်မှန်း</div><div class="v" style="font-size:18px">'+eta+'</div></div>'
-   +'</div>'
-   +'<div style="background:var(--bg-accent);border-radius:var(--radius);padding:1rem;margin-top:12px">'
-   +'<p style="margin:0 0 6px;font-size:13px;color:var(--text-accent);font-weight:500">အရင်ဆုံး ဖြည့်ရမယ့် ၂ ခု</p>'
-   +'<p style="margin:0;font-size:15px;color:var(--text-accent)">'+weak.join(' · ')+'</p></div>'
-   +'<p style="font-size:14px;color:var(--text-secondary);margin:12px 0 0">အားသာချက်: '+strong+' — CV နဲ့ interview မှာ ဒါကို ရှေ့တန်းတင်ပါ။</p>'
-   +'<div style="margin-top:1rem"><button id="ask">ဒီရလဒ်အတွက် ၃ လ roadmap ဆွဲပေးပါ ↗</button></div>';
-  document.getElementById('out').innerHTML=h;
-  document.getElementById('ask').addEventListener('click',function(){
-    sendPrompt('Self-rating ရလဒ်: '+vals.map(function(x){return x.k+' '+x.v}).join(', ')+' (စုစုပေါင်း '+total+'/40)။ ဒီအခြေအနေအတွက် ၃ လ roadmap ဆွဲပေးပါ။');
+
+  document.getElementById('reset').addEventListener('click', function(){
+    rows.forEach(function(r){
+      delete r.dataset.val;
+      r.querySelectorAll('.p').forEach(function(x){ x.classList.remove('on'); });
+      r.querySelector('.an').textContent = '';
+    });
+    document.getElementById('name').value = '';
+    err.textContent = '';
+    out.innerHTML = blank;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
-});
+
+  document.getElementById('go').addEventListener('click', function(){
+    var vals = rows.map(function(r){
+      return { k: r.dataset.k, v: parseInt(r.dataset.val || 0, 10) };
+    });
+
+    if (vals.some(function(x){ return !x.v; })) {
+      err.textContent = 'Rate all ten areas first';
+      return;
+    }
+
+    var name = document.getElementById('name').value.trim();
+
+    var scored = vals.map(function(x){
+      var s = SPEC[x.k];
+      return { k: x.k, v: x.v, t: s.t, w: s.w, do: s.do, gap: Math.max(0, s.t - x.v) * s.w };
+    });
+
+    var gaps = scored.filter(function(x){ return x.gap > 0; })
+      .sort(function(a, b){ return b.gap - a.gap || b.w - a.w; });
+
+    var todo = gaps.slice(0, 3);
+    var rest = gaps.slice(3);
+    var met = scored.filter(function(x){ return x.gap === 0; }).map(function(x){ return x.k; });
+
+    var html = '';
+
+    if (todo.length) {
+      html += '<p class="outh">Work on these first</p>';
+      todo.forEach(function(x, i){
+        html += '<div class="task"><div class="rank">' + (i + 1) + '</div><div class="body">'
+          + '<p class="t">' + esc(x.k) + '</p>'
+          + '<p class="lvl">You are at ' + x.v + ' — entry level needs ' + x.t + '</p>'
+          + '<p class="do">' + esc(x.do) + '</p>'
+          + '</div></div>';
+      });
+    } else {
+      html += '<p class="outh">You meet the bar across the board</p>'
+        + '<div class="task"><div class="rank">1</div><div class="body">'
+        + '<p class="t">Time to start applying</p>'
+        + '<p class="do">More studying at this point has diminishing returns. Apply for roles and book mock interviews so you get real feedback instead of self-assessed feedback.</p>'
+        + '</div></div>';
+    }
+
+    if (rest.length) {
+      html += '<p class="subh">After those three, come back to these</p>';
+      rest.forEach(function(x){
+        html += '<div class="mini"><span>' + esc(x.k) + '</span>'
+          + '<span class="g">at ' + x.v + ' — needs ' + x.t + '</span></div>';
+      });
+    }
+
+    if (met.length) {
+      html += '<div class="ok"><p class="l">Already at the level you need</p><p class="v">' + esc(met.join('  ·  ')) + '</p></div>';
+    }
+
+    html += '<textarea class="copy" rows="16" readonly id="sum"></textarea>'
+      + '<p class="note">Copy the text above and send it to your mentor.</p>';
+
+    out.innerHTML = html;
+
+    var summary = (name ? name + ' — ' : '') + 'Self-rating result\n\n'
+      + vals.map(function(x){ return '  ' + x.k + ': ' + x.v + '/5'; }).join('\n')
+      + '\n\nWork on first\n'
+      + (todo.length
+          ? todo.map(function(x, i){ return '  ' + (i + 1) + '. ' + x.k + ' (at ' + x.v + ', needs ' + x.t + ')'; }).join('\n')
+          : '  Nothing outstanding — time to start applying')
+      + (rest.length
+          ? '\n\nAfter that\n' + rest.map(function(x){ return '  ' + x.k + ' (at ' + x.v + ', needs ' + x.t + ')'; }).join('\n')
+          : '')
+      + (met.length ? '\n\nAlready there\n  ' + met.join(', ') : '');
+
+    document.getElementById('sum').value = summary;
+    out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
 })();
 </script>
+</body>
+</html>
