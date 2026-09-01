@@ -1,0 +1,147 @@
+<h2 class="sr-only">Data career self-rating tool: rate yourself 1 to 5 across eight skill areas and see your stage and focus areas.</h2>
+<style>
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.row{padding:12px 0;border-bottom:0.5px solid var(--border)}
+.row:last-of-type{border-bottom:none}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.nm{font-size:15px;font-weight:500}
+.pills{display:flex;gap:6px}
+.p{width:32px;height:32px;padding:0;font-size:14px;border-radius:var(--radius);cursor:pointer}
+.p.on{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent)}
+.an{font-size:13px;color:var(--text-secondary);margin-top:6px;min-height:18px}
+.mc{background:var(--surface-1);border-radius:var(--radius);padding:1rem}
+.mc .l{font-size:13px;color:var(--text-secondary)}
+.mc .v{font-size:24px;font-weight:500;margin-top:4px}
+</style>
+
+<div style="padding:1rem 0">
+
+<div class="row" data-k="SQL">
+<div class="hd"><span class="nm">SQL</span><span class="pills">
+<button class="p" data-v="1" data-l="SELECT, WHERE လောက်ပဲ">1</button>
+<button class="p" data-v="2" data-l="JOIN, GROUP BY ရေးတတ်">2</button>
+<button class="p" data-v="3" data-l="Subquery, CTE သုံးတတ်">3</button>
+<button class="p" data-v="4" data-l="Window function သုံးတတ်">4</button>
+<button class="p" data-v="5" data-l="Query tuning, execution plan ဖတ်တတ်">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="Programming">
+<div class="hd"><span class="nm">Programming</span><span class="pills">
+<button class="p" data-v="1" data-l="Syntax လောက်ပဲ သိတယ်">1</button>
+<button class="p" data-v="2" data-l="Script သေးသေး ရေးတတ်">2</button>
+<button class="p" data-v="3" data-l="File, API handle + error handling">3</button>
+<button class="p" data-v="4" data-l="Reusable module, test ရေးတတ်">4</button>
+<button class="p" data-v="5" data-l="Production code ရေးဖူး, code review လုပ်ဖူး">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="Data modeling">
+<div class="hd"><span class="nm">Data modeling</span><span class="pills">
+<button class="p" data-v="1" data-l="Table ဆိုတာ သိရုံ">1</button>
+<button class="p" data-v="2" data-l="Normalization အခြေခံ နားလည်">2</button>
+<button class="p" data-v="3" data-l="App database ကိုယ်တိုင် ဒီဇိုင်းလုပ်ဖူး">3</button>
+<button class="p" data-v="4" data-l="Star schema, fact / dimension နားလည်">4</button>
+<button class="p" data-v="5" data-l="Warehouse + SCD ဒီဇိုင်း လုပ်ဖူး">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="Pipeline / ETL">
+<div class="hd"><span class="nm">Pipeline / ETL</span><span class="pills">
+<button class="p" data-v="1" data-l="မလုပ်ဖူးပါ">1</button>
+<button class="p" data-v="2" data-l="Manual export / import လုပ်ဖူး">2</button>
+<button class="p" data-v="3" data-l="Script + cron နဲ့ automate လုပ်ဖူး">3</button>
+<button class="p" data-v="4" data-l="Airflow, ADF စတဲ့ tool သုံးဖူး">4</button>
+<button class="p" data-v="5" data-l="Production pipeline monitor လုပ်ဖူး">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="Git / Linux / Cloud">
+<div class="hd"><span class="nm">Git / Linux / Cloud</span><span class="pills">
+<button class="p" data-v="1" data-l="မသုံးဖူးပါ">1</button>
+<button class="p" data-v="2" data-l="Git commit, push လောက်">2</button>
+<button class="p" data-v="3" data-l="Branch, merge, PR လုပ်တတ်">3</button>
+<button class="p" data-v="4" data-l="Linux CLI ကျွမ်းကျင်">4</button>
+<button class="p" data-v="5" data-l="Cloud service တစ်ခု deploy လုပ်ဖူး">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="Dashboard / BI">
+<div class="hd"><span class="nm">Dashboard / BI</span><span class="pills">
+<button class="p" data-v="1" data-l="မလုပ်ဖူးပါ">1</button>
+<button class="p" data-v="2" data-l="Excel chart လောက်">2</button>
+<button class="p" data-v="3" data-l="BI tool နဲ့ dashboard လုပ်ဖူး">3</button>
+<button class="p" data-v="4" data-l="Metric သတ်မှတ်ပြီး ဒီဇိုင်းလုပ်ဖူး">4</button>
+<button class="p" data-v="5" data-l="Stakeholder ဆီက requirement ယူပြီး လုပ်ဖူး">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="English / Communication">
+<div class="hd"><span class="nm">English / Communication</span><span class="pills">
+<button class="p" data-v="1" data-l="ပြောရ အရမ်းခက်">1</button>
+<button class="p" data-v="2" data-l="ဖတ်နိုင်တယ်, ပြောရခက်">2</button>
+<button class="p" data-v="3" data-l="Meeting မှာ ပါဝင်နိုင်">3</button>
+<button class="p" data-v="4" data-l="Project ကို English နဲ့ ရှင်းပြနိုင်">4</button>
+<button class="p" data-v="5" data-l="Stakeholder နဲ့ ညှိနှိုင်းနိုင်">5</button>
+</span></div><div class="an"></div></div>
+
+<div class="row" data-k="Portfolio">
+<div class="hd"><span class="nm">Portfolio</span><span class="pills">
+<button class="p" data-v="1" data-l="မရှိသေးပါ">1</button>
+<button class="p" data-v="2" data-l="Tutorial project ပဲ ရှိ">2</button>
+<button class="p" data-v="3" data-l="ကိုယ်ပိုင် project ၁ ခု ရှိ">3</button>
+<button class="p" data-v="4" data-l="End-to-end project + README">4</button>
+<button class="p" data-v="5" data-l="တခြားသူ သုံးနေတဲ့ system လုပ်ဖူး">5</button>
+</span></div><div class="an"></div></div>
+
+<div style="display:flex;align-items:center;gap:12px;margin-top:1.5rem">
+<button id="go">ရလဒ် ကြည့်မယ်</button>
+<span id="err" style="font-size:13px;color:var(--text-danger)"></span>
+</div>
+
+<div id="out" style="margin-top:1.5rem">
+<p style="font-size:14px;color:var(--text-muted);margin:0">အားလုံး ၈ ခုကို အမှတ်ပေးပြီးမှ ရလဒ် ပေါ်ပါမယ်။</p>
+</div>
+
+</div>
+
+<script>
+(function(){
+var rows=[].slice.call(document.querySelectorAll('.row'));
+rows.forEach(function(r){
+  r.querySelectorAll('.p').forEach(function(b){
+    b.addEventListener('click',function(){
+      r.querySelectorAll('.p').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');
+      r.dataset.val=b.dataset.v;
+      r.querySelector('.an').textContent=b.dataset.l;
+      document.getElementById('err').textContent='';
+    });
+  });
+});
+document.getElementById('go').addEventListener('click',function(){
+  var vals=rows.map(function(r){return {k:r.dataset.k,v:parseInt(r.dataset.val||0,10)}});
+  if(vals.some(function(x){return !x.v})){
+    document.getElementById('err').textContent='၈ ခုလုံး အမှတ်ပေးပါ';
+    return;
+  }
+  var total=vals.reduce(function(a,b){return a+b.v},0);
+  var band,eta;
+  if(total<=15){band='အခြေခံ တည်ဆောက်ဆဲ';eta='၆-၉ လ';}
+  else if(total<=23){band='သင်ယူဆဲ အဆင့်';eta='၄-၆ လ';}
+  else if(total<=31){band='Interview နီးပြီ';eta='၂-၃ လ';}
+  else {band='Entry level အသင့်';eta='အခုပဲ လျှောက်လို့ရ';}
+  var sorted=vals.slice().sort(function(a,b){return a.v-b.v});
+  var weak=sorted.slice(0,2).map(function(x){return x.k});
+  var strong=sorted[sorted.length-1].k;
+  var h='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">'
+   +'<div class="mc"><div class="l">စုစုပေါင်း</div><div class="v">'+total+' / 40</div></div>'
+   +'<div class="mc"><div class="l">အဆင့်</div><div class="v" style="font-size:18px">'+band+'</div></div>'
+   +'<div class="mc"><div class="l">Interview အထိ ခန့်မှန်း</div><div class="v" style="font-size:18px">'+eta+'</div></div>'
+   +'</div>'
+   +'<div style="background:var(--bg-accent);border-radius:var(--radius);padding:1rem;margin-top:12px">'
+   +'<p style="margin:0 0 6px;font-size:13px;color:var(--text-accent);font-weight:500">အရင်ဆုံး ဖြည့်ရမယ့် ၂ ခု</p>'
+   +'<p style="margin:0;font-size:15px;color:var(--text-accent)">'+weak.join(' · ')+'</p></div>'
+   +'<p style="font-size:14px;color:var(--text-secondary);margin:12px 0 0">အားသာချက်: '+strong+' — CV နဲ့ interview မှာ ဒါကို ရှေ့တန်းတင်ပါ။</p>'
+   +'<div style="margin-top:1rem"><button id="ask">ဒီရလဒ်အတွက် ၃ လ roadmap ဆွဲပေးပါ ↗</button></div>';
+  document.getElementById('out').innerHTML=h;
+  document.getElementById('ask').addEventListener('click',function(){
+    sendPrompt('Self-rating ရလဒ်: '+vals.map(function(x){return x.k+' '+x.v}).join(', ')+' (စုစုပေါင်း '+total+'/40)။ ဒီအခြေအနေအတွက် ၃ လ roadmap ဆွဲပေးပါ။');
+  });
+});
+})();
+</script>
